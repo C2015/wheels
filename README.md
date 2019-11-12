@@ -13,7 +13,6 @@ vczh 在知乎问题 [如何能以后达到温赵轮三位大神的水平？](ht
 > 2、以自己是否能造出轮子来衡量学习的效果；
 > 
 > 3、坚持每天写自己的代码，前10年每天至少6个小时，不包含学习和工作的时间。
-> 
 > 就做了一点微小的工作，很惭愧，谢谢大家。
 
 ## 仓库目的
@@ -24,3 +23,13 @@ vczh 在知乎问题 [如何能以后达到温赵轮三位大神的水平？](ht
 
 原生实现
 
+## 列表
+
+### 1.EventEmitter
+
+难度：⭐️
+
+介绍：一个简单的 EventEmitter，可在浏览器中使用，帮助你实现事件的订阅和发布。
+
+地址：[https://github.com/C2015/wheels/blob/master/EventEmitter
+](https://github.com/C2015/wheels/blob/master/EventEmitter)
