@@ -2,7 +2,7 @@ class EventEmitter{
     constructor(){
         this.eventObj={};
     }
-    static get version(){
+    static get VERSION(){
         return '0.0.1';
     }
     /**

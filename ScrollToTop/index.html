@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            height: 2000px;
+        }
+        .top{
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 30px;
+            height: 30px;
+            background: greenyellow;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="top"></div>
+    <script type="module">
+        import ScrollToTop from './scrollToTop.js'
+        new ScrollToTop(document.querySelector('.top'));
+    </script>
+</body>
+</html>
