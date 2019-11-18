@@ -2,10 +2,11 @@ class ScrollToTop{
     constructor(dom, options = {
         showWhen: 100,
         speed: 100,
-        fadeSpeed: 10
+        fadeSpeed: 5
     }){
         this.dom = dom;
         this.options = options;
+        this.showTopDom = false;
         this.init();
     }
     static get VERSION(){
@@ -23,10 +24,12 @@ class ScrollToTop{
     bindScroll(){
         window.addEventListener('scroll',()=>{
             const y = ScrollToTop.getOffset().y;
-            if(y > this.options.showWhen){
-                this.showElement();
-            }else{
-                this.hideElement();
+            if(y > this.options.showWhen && !this.showTopDom){
+                this.showTopDom = true;
+                ScrollToTop.fadeIn(this.dom, this.options.fadeSpeed);
+            }else if(y < this.options.showWhen && this.showTopDom){
+                this.showTopDom = false;
+                ScrollToTop.fadeOut(this.dom, this.options.fadeSpeed);
             }
         })
     }
@@ -47,38 +50,41 @@ class ScrollToTop{
         })
     }
     hideElement(){
-        const dom = this.dom;
-        let opacity = 100;
-        let reqId;
-        let setOpacity = ()=>{
-            opacity-=this.options.fadeSpeed;
-            this.dom.style.opacity = opacity/100;
-            reqId = requestAnimationFrame(setOpacity)
-            if(opacity <= 0){
-                cancelAnimationFrame(reqId);
-            }
-            opacity-=this.options.fadeSpeed;
-        }
-        reqId =requestAnimationFrame(setOpacity);
+        this.showTopDom = false;
+        ScrollToTop.setOpacity(this.dom, 0);
     }
     showElement(){
-        const dom = this.dom;
-        let opacity = 0;
-        let reqId;
-        let setOpacity = ()=>{
-            opacity += this.options.fadeSpeed;
-            this.dom.style.opacity = opacity/100;
-            reqId = requestAnimationFrame(setOpacity)
-            if(opacity >= 100 ){
-                cancelAnimationFrame(reqId);
-            }
-            opacity += this.options.fadeSpeed;
-        }
-        reqId = requestAnimationFrame(setOpacity);
+        this.showTopDom = true;
+        ScrollToTop.setOpacity(this.dom, 100);
     }
-    setOpacity(){
-        this.dom.style.opacity = opacity/100;
-        
+    static fadeIn(element, speed){
+        let opacity = 0;
+        let timer;
+        function step(){
+            opacity += speed;
+            ScrollToTop.setOpacity(element, opacity)
+            timer = requestAnimationFrame(step);
+            if(opacity >= 100){
+                cancelAnimationFrame(timer);
+            }
+        }
+        requestAnimationFrame(step);
+    }
+    static fadeOut(element, speed){
+        let opacity = 100;
+        let timer;
+        function step(){
+            opacity -= speed;
+            ScrollToTop.setOpacity(element, opacity)
+            timer = requestAnimationFrame(step);
+            if(opacity <= 0){
+                cancelAnimationFrame(timer);
+            }
+        }
+        requestAnimationFrame(step);
+    }
+    static setOpacity(element, opacity){
+        element.style.opacity = opacity/100;
     }
     static getOffset(){
         const x = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
