@@ -33,3 +33,21 @@ vczh 在知乎问题 [如何能以后达到温赵轮三位大神的水平？](ht
 
 地址：[https://github.com/C2015/wheels/blob/master/EventEmitter
 ](https://github.com/C2015/wheels/blob/master/EventEmitter)
+
+### 2.ScrollToTop
+
+难度：⭐️
+
+介绍：原生 ES6 实现回到顶部库。
+
+地址：[https://github.com/C2015/wheels/blob/master/ScrollToTop
+](https://github.com/C2015/wheels/blob/master/ScrollToTop)
+
+### 3.LazyLoad
+
+难度：⭐️
+
+介绍：原生 ES6 实现图片懒加载库, 可以实现图片和背景的懒加载。
+
+地址：[https://github.com/C2015/wheels/blob/master/LazyLoad
+](https://github.com/C2015/wheels/blob/master/LazyLoad)

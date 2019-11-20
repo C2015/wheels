@@ -1,11 +1,11 @@
 class ScrollToTop{
-    constructor(dom, options = {
-        showWhen: 100,
-        speed: 100,
-        fadeSpeed: 5
-    }){
+    constructor(dom, options){
         this.dom = dom;
-        this.options = options;
+        this.options = Object.assign({
+            showWhen: 100,
+            speed: 100,
+            fadeSpeed: 5
+        },options);
         this.showTopDom = false;
         this.init();
     }
