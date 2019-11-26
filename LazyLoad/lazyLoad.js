@@ -3,7 +3,7 @@
  * @Author: logic
  * @Email: c2018@foxmail.com
  * @Date: 2019-11-20 11:29:31
- * @LastEditTime: 2019-11-20 17:15:36
+ * @LastEditTime: 2019-11-26 09:28:22
  */
 class LazyLoad{
     constructor(options,callback = _ => {}){
@@ -21,7 +21,6 @@ class LazyLoad{
     init(){
         this.getViewRect();
         this.bindEvent();
-        this.render();
     }
     getViewRect(){
         const {top, bottom, left, right} = this.options;
@@ -61,18 +60,17 @@ class LazyLoad{
         window.removeEventListener('load', this.event.load)
     }
     render(){
-        const viewRect = this.viewRect;
         const doms = document.querySelectorAll('[data-lazy-src],[data-lazy-background]');
         let domRect = {};
         for(const dom of doms){
             domRect = dom.getBoundingClientRect();
-            if(domRect.left < viewRect.right && domRect.top < viewRect.bottom && domRect.right > viewRect.left && domRect.bottom > viewRect.top){
+            if(this.checkInView(dom)){
                 const lazySrc = dom.getAttribute('data-lazy-src');
                 if(lazySrc){
                     dom.src = lazySrc;
                     dom.removeAttribute('data-lazy-src');
                 }else {
-                    dom.style.backgroundImage = dom.getAttribute('data-lazy-background');
+                    dom.style.backgroundImage =`url(${dom.getAttribute('data-lazy-background')})`;
                     dom.removeAttribute('data-lazy-background');
                 }
             }
@@ -80,6 +78,17 @@ class LazyLoad{
         if(doms.length === 0){
             this.unBindEvent();
         }
+    }
+    isHidden(element) {
+        return (element.offsetParent === null);
+    }
+
+    checkInView(element) {
+        if (this.isHidden(element)) {
+            return false;
+        }
+        const rect = element.getBoundingClientRect();
+        return (rect.right >= this.viewRect.left && rect.bottom >= this.viewRect.top && rect.left <= this.viewRect.right && rect.top <= this.viewRect.bottom);
     }
     static throttle(func, wait){
         let timer;
